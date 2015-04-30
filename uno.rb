@@ -33,7 +33,7 @@ def makefile_create()
   dude_serial: tty,
   clean: '*.o *.s *.elf *.bin',
 }
-  
+
   src_list = ""
   obj_list = ""
   inc_paths = ""
@@ -146,14 +146,14 @@ end
 # :type :place :text :comment :overwrite
 def create_file(name, *args)
   par = args[0]
-  
+
   text = ""
   tag = name
-  
+
   if par.include? :text
     text = par[:text]
   end
-  
+
   if par.include? :place
     name = par[:place] + '/' + name
   end
@@ -161,29 +161,29 @@ def create_file(name, *args)
   if par.include? :type
     if par[:type] == '.c'
       name = name + '.c'
-      
+
       if par.include? :comment
         comment = par[:comment]
       else
         comment = "/*\n * #{name}\n */"
       end
-      
+
       text = comment + "\n" + text
-      
+
       if not File.exist? name
         config_add_source name
       end
-      
+
     elsif par[:type] == '.h'
       tag = tag.upcase + '_H'
       name = name + '.h'
-      
+
       if par.include? :comment
         comment = par[:comment]
       else
         comment = "/*\n * #{name}\n */"
       end
-      
+
       text = comment + "\n" +
 """
 #ifndef #{tag}
@@ -199,7 +199,7 @@ def create_file(name, *args)
       end
     end
   end
-  
+
   # check if exist
   if File.exist? name
     if par.include? :overwrite
@@ -217,7 +217,7 @@ def create_file(name, *args)
   else
     puts "\tcreate #{name}"
   end
-  
+
   f = File.new(name, 'w')
   f.write text
   f.close
@@ -236,7 +236,7 @@ def main_create(modules)
   modules.each do |modname|
     includes << "#include <#{modname}.h>\n"
   end
-  
+
   main_text = """
 #{includes}
 
@@ -263,15 +263,15 @@ int main() {
 	return 0;
 }\n
 """
-  
+
   create_file('main', type: '.c', overwrite: true, text: main_text)
 end
 
 def init_create(modules)
-  
+
   includes = ""
   init_calls = ""
-  
+
   includes << "#include <stdio.h>\n"
   includes << "#include <avr/io.h>\n"
   includes << "#include <util/delay.h>\n"
@@ -280,7 +280,7 @@ def init_create(modules)
     init_calls << "\t#{modname}_init();\n"
     includes << "#include <#{modname}.h>\n"
   end
-  
+
   init_text = """
 #{includes}
 
@@ -299,7 +299,7 @@ end
 
 
 def create_project(name, required)
-  
+
   # check if already exist
   if Dir.exist? name
     print "Directory already exist, Overwrite? (n/y): "
@@ -309,16 +309,16 @@ def create_project(name, required)
     puts "removing.."
     system("rm -rf #{name}")
   end
-  
+
   puts "creating of new project \'#{name}\'.."
   Dir.mkdir name
   Dir.chdir name
-  
+
   `git init`
 
   create_file('README.md', text: "\n##{name}\n\n")
   system("#{$editor} README.md")
-  
+
   config_init()
 
   Dir.mkdir 'lib'
@@ -348,7 +348,7 @@ def add_module(name)
   Dir.chdir '..'
 
   config_add_module name
-  
+
   project_refresh()
 end
 

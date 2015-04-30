@@ -14,9 +14,9 @@ unamestr=`uname`
 if [ "$unamestr" == 'Linux' ]; then
   $INSTALL_CMD ruby
   $INSTALL_CMD $NEED
-  sed 's/System/Linux/g' avr.rb > avr2
+  sed 's/System/Linux/g' uno.rb > uno2
 elif [ "$unamestr" == 'Darwin' ]; then
-  sed 's/System/Darwin/g' avr.rb > avr2
+  sed 's/System/Darwin/g' uno.rb > uno2
 fi
 
 #check for ruby installation
@@ -28,8 +28,8 @@ elif [ -f '/usr/local/bin/ruby' ]; then
 fi
 
 
-sed 's/REPO/'$REPO'/g' avr2 > avr3
-sed 's/#!RUBY/'$RUBY'/g' avr3 > avr
-rm -rf avr2 avr3
+sed 's/REPO/'$REPO'/g' uno2 > uno3
+sed 's/#!RUBY/'$RUBY'/g' uno3 > uno
+rm -rf uno2 uno3
 
-install avr '/usr/bin/avr'
+install uno '/usr/bin/uno'
