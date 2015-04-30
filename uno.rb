@@ -249,12 +249,10 @@ int main() {
 		 */
 
 		/*
-        uart_putchar('+');
 		printf(\"tick! \\n\");
 		gpio_out(&PORTB, PB5, 0xFF);
 		_delay_ms(666);
 
-        uart_putchar('-');
 		printf(\"tuck! \\n\");
 		gpio_out(&PORTB, PB5, 0x00);
 		_delay_ms(666);
