@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-REPO='https:\/\/github.com\/arp-library'
+REPO='https:\/\/github.com\/arduino-c'
 
 INSTALL_CMD='apt-get -y install'
 
