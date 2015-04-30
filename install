@@ -1,0 +1,35 @@
+#!/bin/bash
+
+
+REPO='https:\/\/github.com\/arp-library'
+
+INSTALL_CMD='apt-get -y install'
+
+# Install this
+NEED='gcc-avr binutils-avr gdb-avr avr-libc avrdude minicom'
+
+
+#system detecting
+unamestr=`uname`
+if [ "$unamestr" == 'Linux' ]; then
+  $INSTALL_CMD ruby
+  $INSTALL_CMD $NEED
+  sed 's/System/Linux/g' avr.rb > avr2
+elif [ "$unamestr" == 'Darwin' ]; then
+  sed 's/System/Darwin/g' avr.rb > avr2
+fi
+
+#check for ruby installation
+RUBY=''
+if [ -f '/usr/bin/ruby' ]; then
+   RUBY='#!\/usr\/bin\/ruby'
+elif [ -f '/usr/local/bin/ruby' ]; then
+   RUBY='#!\/usr\/local\/bin\/ruby'
+fi
+
+
+sed 's/REPO/'$REPO'/g' avr2 > avr3
+sed 's/#!RUBY/'$RUBY'/g' avr3 > avr
+rm -rf avr2 avr3
+
+install avr '/usr/bin/avr'
