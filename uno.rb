@@ -391,16 +391,16 @@ end
 if ARGV[0]
   main()
 else
-  #puts "avr new <project_name>"
-  #puts "avr import module1 module2 .."
-  #puts "avr append file directory .."
+  #puts "uno new <project_name>"
+  #puts "uno import module1 module2 .."
+  #puts "uno append file directory .."
 
   puts "unknown command; usage example:"
-  puts "avr new my_project"
-  puts "cd my_project"
-  puts "avr import uart gpio"
-  puts "touch mycode.c"
-  puts "append mycode.c"
+  puts "\tuno new my_project"
+  puts "\tcd my_project"
+  puts "\tuno import uart gpio"
+  puts "\ttouch mycode.c"
+  puts "\tuno append mycode.c"
 end
 
 if File.exist? $config_name
